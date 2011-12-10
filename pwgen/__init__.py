@@ -21,6 +21,7 @@ Symbols = string.punctuation
 HasCaps = re.compile("[A-Z]")
 HasNumerals = re.compile("[0-9]")
 HasSymbols = re.compile(r"[%s]" % re.escape(Symbols))
+HasAmbiguous = re.compile("[B8G6I1l|0OQDS5Z2]")
 
 def replaceRandomChar(letter, word, pos=None):
     if not pos:
@@ -30,7 +31,8 @@ def replaceRandomChar(letter, word, pos=None):
     return "".join(word)
 
 def pwgen(pw_length=20, num_pw=1, no_numerals=False, no_capitalize=False, capitalize=False,
-                         numerals=False, no_symbols=False, symbols=False, allowed_symbols=None):
+                         numerals=False, no_symbols=False, symbols=False, allowed_symbols=None,
+                         no_ambiguous=False):
     """Generate a random password.
 
     @param pw_length: The length of the password to generate [default: 20]
@@ -42,6 +44,7 @@ def pwgen(pw_length=20, num_pw=1, no_numerals=False, no_capitalize=False, capita
     @param no_symbols: Don't include symbols in the password [default: False]
     @param symbols: Enforce at least one symbol to be in the password [default: False]
     @param allowed_symbols: a string containing allowed symbols [default: string.punctuation]
+    @param no_ambigous: Don't include ambigous characters [default: False ]
 
     """
 
@@ -66,6 +69,8 @@ def pwgen(pw_length=20, num_pw=1, no_numerals=False, no_capitalize=False, capita
             passwd = replaceRandomChar(choice(Digits), passwd)
         if symbols and not HasSymbols.search(passwd):
             passwd = replaceRandomChar(choice(Symbols), passwd)
+        if no_ambiguous and HasAmbiguous.search(passwd):
+            continue
         passwds.append(passwd)
 
     if len(passwds) == 1:
