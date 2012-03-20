@@ -9,9 +9,12 @@
 
 """
 
-from random import choice, randint
 import string
 import re
+
+from random import SystemRandom
+choice = SystemRandom().choice
+randint = SystemRandom().randint
 
 LowercaseLetters = string.lowercase
 UpperCase = string.uppercase
