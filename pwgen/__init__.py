@@ -16,8 +16,8 @@ from random import SystemRandom
 choice = SystemRandom().choice
 randint = SystemRandom().randint
 
-LowercaseLetters = string.lowercase
-UpperCase = string.uppercase
+LowercaseLetters = string.ascii_lowercase
+UpperCase = string.ascii_uppercase
 Digits = string.digits
 Symbols = string.punctuation
 
