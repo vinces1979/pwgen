@@ -58,7 +58,7 @@ def pwgen(length=10, count=5, capitalize=False, numerals=True, symbols=False, al
         if numerals and not HasNumerals.search(passwd):
             passwd = replaceRandomChar(choice(Digits), passwd)
         if symbols and not HasSymbols.search(passwd):
-            passwd = replaceRandomChar(choice(Symbols), passwd)
+            passwd = replaceRandomChar(choice(baseSymbols), passwd)
         if ambiguous and not HasAmbiguous.search(passwd):
             continue
         passwds.append(passwd)
