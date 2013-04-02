@@ -69,7 +69,7 @@ def pwgen(length=10, count=5, capitalize=False, numerals=True, symbols=False, al
 def replaceRandomChar(letter, word, pos=None):
     randint = SystemRandom().randint
     if not pos:
-        pos = randint(0, len(word))
+        pos = randint(0, len(word) - 1)
     word = list(word)
     word[pos] = letter
     return "".join(word)
