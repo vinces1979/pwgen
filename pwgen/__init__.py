@@ -27,7 +27,7 @@ def pwgen(length=10, count=5, capitalize=False, numerals=True, symbols=False, al
 
     """
     Digits = string.digits
-    baseSymbols = string.punctuation
+    Symbols = string.punctuation
     AmbigousLetters = "B8G6I1l|0OQDS5Z2"
     HasCaps = re.compile(r"[A-Z]")
     HasNumerals = re.compile(r"[0-9]")
@@ -42,11 +42,11 @@ def pwgen(length=10, count=5, capitalize=False, numerals=True, symbols=False, al
         letters += Digits
     if symbols:
         if allowed_symbols is not None:
-            baseSymbols = allowed_symbols
-            HasSymbols = re.compile(r"[%s]" % re.escape(baseSymbols))
+            Symbols = allowed_symbols
+            HasSymbols = re.compile(r"[%s]" % re.escape(Symbols))
         else:
-            HasSymbols = re.compile(r"[%s]" % re.escape(baseSymbols))
-        letters += baseSymbols
+            HasSymbols = re.compile(r"[%s]" % re.escape(Symbols))
+        letters += Symbols
     if not ambiguous:
         letters = re.sub(HasAmbiguous, "", letters)
 
@@ -58,7 +58,7 @@ def pwgen(length=10, count=5, capitalize=False, numerals=True, symbols=False, al
         if numerals and not HasNumerals.search(passwd):
             passwd = replaceRandomChar(choice(Digits), passwd)
         if symbols and not HasSymbols.search(passwd):
-            passwd = replaceRandomChar(choice(baseSymbols), passwd)
+            passwd = replaceRandomChar(choice(Symbols), passwd)
         if ambiguous and not HasAmbiguous.search(passwd):
             continue
         passwds.append(passwd)
