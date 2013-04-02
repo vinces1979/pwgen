@@ -14,7 +14,7 @@ import string
 from random import SystemRandom
 
 
-def pwgen(length=10, count=5, capitalize=False, numerals=True, symbols=False, allowed_symbols=None, ambiguous=True):
+def pwgen(length=10, count=5, capitalize=False, numerals=True, symbols=False, allowed_symbols=None, ambiguous=False):
     """Generate a random password.
 
     @param pw_length: The length of the password to generate [default: 20]
@@ -28,9 +28,10 @@ def pwgen(length=10, count=5, capitalize=False, numerals=True, symbols=False, al
     """
     Digits = string.digits
     Symbols = string.punctuation
-    HasCaps = re.compile("[A-Z]")
-    HasNumerals = re.compile("[0-9]")
-    HasAmbiguous = re.compile("[B8G6I1l|0OQDS5Z2]")
+    AmbigousLetters = "B8G6I1l|0OQDS5Z2"
+    HasCaps = re.compile(r"[A-Z]")
+    HasNumerals = re.compile(r"[0-9]")
+    HasAmbiguous = re.compile(r"[%s]" % AmbigousLetters)
     choice = SystemRandom().choice
 
     letters = string.ascii_lowercase
@@ -46,6 +47,8 @@ def pwgen(length=10, count=5, capitalize=False, numerals=True, symbols=False, al
         else:
             HasSymbols = re.compile(r"[%s]" % re.escape(Symbols))
         letters += Symbols
+    if not ambiguous:
+        letters = re.sub(HasAmbiguous, "", letters)
 
     passwds = []
     while len(passwds) < int(count):
@@ -56,7 +59,7 @@ def pwgen(length=10, count=5, capitalize=False, numerals=True, symbols=False, al
             passwd = replaceRandomChar(choice(Digits), passwd)
         if symbols and not HasSymbols.search(passwd):
             passwd = replaceRandomChar(choice(Symbols), passwd)
-        if not ambiguous and HasAmbiguous.search(passwd):
+        if ambiguous and not HasAmbiguous.search(passwd):
             continue
         passwds.append(passwd)
 
