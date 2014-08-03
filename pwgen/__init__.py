@@ -36,7 +36,7 @@ def replaceRandomChar(letter, word, pos=None):
 
 
 def pwgen(pw_length=20, num_pw=1, no_numerals=False, no_capitalize=False,
-          capitalize=False, numerals=False, no_symbols=False, symbols=False,
+          capitalize=False, numerals=False, no_symbols=True, symbols=False,
           allowed_symbols=None, no_ambiguous=False):
     """Generate a random password.
 
@@ -49,7 +49,7 @@ def pwgen(pw_length=20, num_pw=1, no_numerals=False, no_capitalize=False,
                           password [default: False]
     @param capitalize: Enforce at least one capital letter to be in
                        the password [default: False]
-    @param no_symbols: Don't include symbols in the password [default: False]
+    @param no_symbols: Don't include symbols in the password [default: True]
     @param symbols: Enforce at least one symbol to be in the
                     password [default: False]
     @param allowed_symbols: a string containing allowed
