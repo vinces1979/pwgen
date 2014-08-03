@@ -29,7 +29,7 @@ HasAmbiguous = re.compile("[B8G6I1l|0OQDS5Z2]")
 
 def replaceRandomChar(letter, word, pos=None):
     if not pos:
-        pos = randint(0, len(word))
+        pos = randint(0, len(word)-1)
     word = list(word)
     word[pos] = letter
     return "".join(word)

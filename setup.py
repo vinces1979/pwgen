@@ -15,6 +15,10 @@ setup(
     license="MIT",
     platforms=["any"],
     packages=packages,
+    entry_points={
+        'console_scripts': [
+            'pwgen = pwgen.cmdline:main',
+        ]},
     keywords=[
         'pwgen', 'password', 'strings', 'random'
     ],
