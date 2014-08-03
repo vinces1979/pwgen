@@ -3,9 +3,9 @@
 
     Copyright 2011 Vince Spicer <vinces1979@gmail.com>
 
-    As long as you retain this notice you can do whatever you want with this stuff.
-    If we meet some day, and you think this stuff is worth it, you can buy me a
-    beer in return Regina, SK Canada
+    As long as you retain this notice you can do whatever you want with this
+    stuff. If we meet some day, and you think this stuff is worth it,
+    you can buy me a beer in return Regina, SK Canada
 
 """
 
@@ -26,6 +26,7 @@ HasNumerals = re.compile("[0-9]")
 HasSymbols = re.compile(r"[%s]" % re.escape(Symbols))
 HasAmbiguous = re.compile("[B8G6I1l|0OQDS5Z2]")
 
+
 def replaceRandomChar(letter, word, pos=None):
     if not pos:
         pos = randint(0, len(word))
@@ -33,20 +34,26 @@ def replaceRandomChar(letter, word, pos=None):
     word[pos] = letter
     return "".join(word)
 
-def pwgen(pw_length=20, num_pw=1, no_numerals=False, no_capitalize=False, capitalize=False,
-                         numerals=False, no_symbols=False, symbols=False, allowed_symbols=None,
-                         no_ambiguous=False):
+
+def pwgen(pw_length=20, num_pw=1, no_numerals=False, no_capitalize=False,
+          capitalize=False, numerals=False, no_symbols=False, symbols=False,
+          allowed_symbols=None, no_ambiguous=False):
     """Generate a random password.
 
     @param pw_length: The length of the password to generate [default: 20]
     @param num_pw: The number of passwords to generate [default: 1]
-    @param no_numerals:  Don't include numbers in the passwords [default: False]
-    @param numerals: Enforce at least one number to be in the password [default: False]
-    @param no_capitalize: Don't include capital letters in the password [default: False]
-    @param capitalize:  Enforce at least one capital letter to be in the password [default: False]
+    @param no_numerals: Don't include numbers in the passwords [default: False]
+    @param numerals: Enforce at least one number to be in the
+                     password [default: False]
+    @param no_capitalize: Don't include capital letters in the
+                          password [default: False]
+    @param capitalize: Enforce at least one capital letter to be in
+                       the password [default: False]
     @param no_symbols: Don't include symbols in the password [default: False]
-    @param symbols: Enforce at least one symbol to be in the password [default: False]
-    @param allowed_symbols: a string containing allowed symbols [default: string.punctuation]
+    @param symbols: Enforce at least one symbol to be in the
+                    password [default: False]
+    @param allowed_symbols: a string containing allowed
+                            symbols [default: string.punctuation]
     @param no_ambigous: Don't include ambigous characters [default: False ]
 
     """
