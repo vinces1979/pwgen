@@ -3,21 +3,15 @@ pwgen
 
 A simple implementation of pwgen in python
 
-Installation
----------
-
-    pip install pwgen
-    easy_install install pwgen
-
 Basic Usage:
 ------------------
 
     from pwgen import pwgen
     pwgen()
     >> '[^%6JK<&Lb}{.T#eYY+
-    pwgen(10, no_symbols=True)
+    pwgen(10, symbols=False)
     >> ujr20YVkH3
-    pwgen(50, 10, no_symbols=True, no_capitalize=True)
+    pwgen(50, 10, symbols=False, capitalize=False)
     >>['ra8xymzct6e9fmmwen0ejvae6x5pyjvdlptxz8da69e4fivvs4',
         'v4hj1v1a3wwr765xvlsorn9rdfe8vk9pf2fnqdr891ztvrc7wd',
         'zpowwedvv2l2ka747weuijejqetnquga8w6eixuaeuoerpjvp2',
