@@ -1,76 +1,92 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
 
     Copyright 2011 Vince Spicer <vinces1979@gmail.com>
 
-    As long as you retain this notice you can do whatever you want with this stuff.
-    If we meet some day, and you think this stuff is worth it, you can buy me a
-    beer in return Regina, SK Canada
+    As long as you retain this notice you can do whatever you want with this
+    stuff. If we meet some day, and you think this stuff is worth it,
+    you can buy me a beer in return Regina, SK Canada
+
+    2015 - Luar was here <cyberplant@gmail.com>
 
 """
-import re
+
 import string
+import re
+
 from random import SystemRandom
+choice = SystemRandom().choice
+randint = SystemRandom().randint
+
+LowercaseLetters = string.ascii_lowercase
+UpperCase = string.ascii_uppercase
+Digits = string.digits
+Symbols = string.punctuation
+
+HasCaps = re.compile("[A-Z]")
+HasNumerals = re.compile("[0-9]")
+HasSymbols = re.compile(r"[%s]" % re.escape(Symbols))
+HasAmbiguous = re.compile("[B8G6I1l|0OQDS5Z2]")
 
 
-def pwgen(length=10, count=5, capitalize=False, numerals=True, symbols=False, allowed_symbols=None, ambiguous=False):
+def replaceRandomChar(letter, word, pos=None):
+    if not pos:
+        pos = randint(0, len(word)-1)
+    word = list(word)
+    word[pos] = letter
+    return "".join(word)
+
+
+def pwgen(pw_length=20, num_pw=1, no_numerals=False, no_capitalize=False,
+          capitalize=False, numerals=False, no_symbols=True, symbols=False,
+          allowed_symbols=None, no_ambiguous=False):
     """Generate a random password.
 
     @param pw_length: The length of the password to generate [default: 20]
     @param num_pw: The number of passwords to generate [default: 1]
-    @param numerals: Enforce at least one number to be in the password [default: False]
-    @param capitalize:  Enforce at least one capital letter to be in the password [default: False]
-    @param symbols: Enforce at least one symbol to be in the password [default: False]
-    @param allowed_symbols: a string containing allowed symbols [default: string.punctuation]
-    @param ambiguous: Don't include ambigous characters [default: False ]
+    @param no_numerals: Don't include numbers in the passwords [default: False]
+    @param numerals: Enforce at least one number to be in the
+                     password [default: False]
+    @param no_capitalize: Don't include capital letters in the
+                          password [default: False]
+    @param capitalize: Enforce at least one capital letter to be in
+                       the password [default: False]
+    @param no_symbols: Don't include symbols in the password [default: True]
+    @param symbols: Enforce at least one symbol to be in the
+                    password [default: False]
+    @param allowed_symbols: a string containing allowed
+                            symbols [default: string.punctuation]
+    @param no_ambigous: Don't include ambigous characters [default: False]
 
     """
-    Digits = string.digits
-    Symbols = string.punctuation
-    AmbigousLetters = "B8G6I1l|0OQDS5Z2"
-    HasCaps = re.compile(r"[A-Z]")
-    HasNumerals = re.compile(r"[0-9]")
-    HasAmbiguous = re.compile(r"[%s]" % AmbigousLetters)
-    choice = SystemRandom().choice
 
-    letters = string.ascii_lowercase
-
-    if capitalize:
-        letters += string.ascii_uppercase
-    if numerals:
+    global Symbols, HasSymbols
+    letters = LowercaseLetters
+    if not no_capitalize:
+        letters += UpperCase
+    if not no_numerals:
         letters += Digits
-    if symbols:
+    if not no_symbols:
         if allowed_symbols is not None:
             Symbols = allowed_symbols
             HasSymbols = re.compile(r"[%s]" % re.escape(Symbols))
-        else:
-            HasSymbols = re.compile(r"[%s]" % re.escape(Symbols))
         letters += Symbols
-    if not ambiguous:
-        letters = re.sub(HasAmbiguous, "", letters)
 
     passwds = []
-    while len(passwds) < int(count):
-        passwd = "".join(choice(letters) for x in range(length))
+    while len(passwds) < int(num_pw):
+        passwd = "".join(choice(letters) for x in range(pw_length))
         if capitalize and not HasCaps.search(passwd):
-            passwd = replaceRandomChar(choice(string.ascii_lowercase), passwd)
+            passwd = replaceRandomChar(choice(UpperCase), passwd)
         if numerals and not HasNumerals.search(passwd):
             passwd = replaceRandomChar(choice(Digits), passwd)
         if symbols and not HasSymbols.search(passwd):
             passwd = replaceRandomChar(choice(Symbols), passwd)
-        if ambiguous and not HasAmbiguous.search(passwd):
+        if no_ambiguous and HasAmbiguous.search(passwd):
             continue
         passwds.append(passwd)
 
-    return len(passwds) == 1 and passwds[0] or passwds
+    if len(passwds) == 1:
+        return passwds[0]
 
-
-def replaceRandomChar(letter, word, pos=None):
-    randint = SystemRandom().randint
-    if not pos:
-        pos = randint(0, len(word) - 1)
-    word = list(word)
-    word[pos] = letter
-    return "".join(word)
+    return passwds
 
