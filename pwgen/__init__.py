@@ -56,7 +56,7 @@ def pwgen(pw_length=20, num_pw=1, no_numerals=False, no_capitalize=False,
                     password [default: False]
     @param allowed_symbols: a string containing allowed
                             symbols [default: string.punctuation]
-    @param no_ambigous: Don't include ambigous characters [default: False]
+    @param no_ambiguous: Don't include ambiguous characters [default: False]
 
     """
 
