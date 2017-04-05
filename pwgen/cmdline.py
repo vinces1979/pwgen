@@ -1,3 +1,4 @@
+from __future__ import print
 import pwgen
 import argparse
 
@@ -70,6 +71,6 @@ def main(data=None):
 
     if type(result) == list:
         for y in range(20):
-            print " ".join([result.pop() for x in range(8)])
+            print(" ".join([result.pop() for x in range(8)]))
     else:
-        print result
+        print(result)
