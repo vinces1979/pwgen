@@ -3,6 +3,12 @@ pwgen
 
 A simple implementation of pwgen in python
 
+Installation
+===
+
+pip install pwgen
+
+
 Basic Usage:
 ------------------
 
