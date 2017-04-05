@@ -1,4 +1,4 @@
-from __future__ import print
+from __future__ import print_fuction
 import pwgen
 import argparse
 
