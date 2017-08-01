@@ -5,7 +5,7 @@ packages = find_packages()
 
 setup(
     name = "pwgen",
-    version = "0.7",
+    version = "0.8.2",
     description = "Pure python version of pwgen",
     long_description = "Simple version of pwgen to generate random password or strings",
     author = "Vince Spicer, Pavel Vavilin, Luar Roji",
